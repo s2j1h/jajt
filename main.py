@@ -19,7 +19,7 @@ TIMEZONE = os.getenv("TIMEZONE", "Europe/Paris")
 
 # ID Telegram autorisés (optionnel - pour sécuriser le bot)
 # Format: "123456789,987654321" dans la variable d'environnement
-AUTHORIZED_USERS_STR = os.getenv("AUTHORIZED_USERS", "")
+AUTHORIZED_USERS_STR = os.getenv("AUTHORIZED_USERS", "0")
 AUTHORIZED_USERS = [int(id.strip()) for id in AUTHORIZED_USERS_STR.split(",") if id.strip()]
 
 # Configuration du logging
