@@ -1,4 +1,4 @@
-# 📔 JAJT - Just Another Journaling Tool
+# JAJT - Just Another Journaling Tool
 
 Un bot Telegram simple pour créer un journal personnel avec versioning automatique sur GitHub.
 
@@ -10,8 +10,11 @@ Un bot Telegram simple pour créer un journal personnel avec versioning automati
 - Statistiques
 - Accès au journal complet via son lien sur github
 
+### v1.1
+- ajout d'un job qui demandera à l'utilisateur 1/jour pour écrire une entrée (à 20h00)
 
-## 🚀 Installation rapide
+
+## Installation rapide
 
 ### 1. Créer un bot Telegram
 
@@ -61,7 +64,7 @@ TIMEZONE = "Europe/Paris"  # Votre timezone
 AUTHORIZED_USERS = "" #la liste des utilisateurs autorisés à utiliser le bot, à récupérer via @userinfobot
 ```
 
-## 🎯 Utilisation
+## Utilisation
 
 ### Démarrer le bot
 
@@ -88,7 +91,7 @@ C'est fascinant de voir comment on peut automatiser
 la création d'un journal personnel ! 🚀
 ```
 
-## 📝 Format du journal
+## Format du journal
 
 Le journal est sauvegardé en Markdown avec ce format :
 
@@ -110,7 +113,7 @@ Deuxième entrée de la journée...
 ---
 ```
 
-## 🚀 Déploiement
+## Déploiement
 
 ### Option 1 : Sur votre ordinateur
 
@@ -123,12 +126,12 @@ python journal_bot.py
 
 
 
-## 🔒 Sécurité
+## Sécurité
 
 - **Ne partagez jamais vos tokens**
 - Utilisez un repo privé si votre journal est personnel
 
-## 🐛 Dépannage
+## Dépannage
 
 ### Le bot ne répond pas
 - Vérifiez que le token Telegram est correct
@@ -144,47 +147,7 @@ python journal_bot.py
 - Vérifiez votre ID Telegram avec @userinfobot
 - Assurez-vous que votre ID est dans `AUTHORIZED_USERS`
 
-## 📚 Personnalisation
-
-### Changer le format des entrées
-
-Modifiez la fonction `format_entry()` :
-```python
-def format_entry(self, text, user_name):
-    # Personnalisez le format ici
-    entry = f"\n### {date_str}\n"
-    entry += f"{text}\n"
-    return entry
-```
-
-### Ajouter des tags
-
-Vous pouvez analyser les messages pour ajouter des tags automatiques :
-```python
-if "#important" in text:
-    entry = f"\n## 📝 {date_str} - {time_str} 🔴 IMPORTANT\n"
-```
-
-### Notifications
-
-Ajoutez des rappels quotidiens :
-```python
-from telegram.ext import JobQueue
-
-async def daily_reminder(context):
-    await context.bot.send_message(
-        chat_id=YOUR_CHAT_ID,
-        text="📝 N'oubliez pas d'écrire dans votre journal aujourd'hui !"
-    )
-
-# Dans main()
-application.job_queue.run_daily(
-    daily_reminder, 
-    time=datetime.time(20, 0, 0)  # 20h00
-)
-```
-
-## 💡 Idées d'amélioration
+## Idées d'amélioration
 
 - Ajouter le support des photos
 - Créer des résumés hebdomadaires/mensuels
@@ -192,11 +155,12 @@ application.job_queue.run_daily(
 - Exporter en PDF
 - Ajouter des graphiques de statistiques
 - Support multi-utilisateurs avec fichiers séparés
+- gestion de tags
 
-## 📄 License
+## License
 
 MIT - Utilisez ce code comme vous voulez !
 
-## 🤝 Support
+## Support
 
 Des questions ? Créez une issue sur GitHub ou améliorez ce README !

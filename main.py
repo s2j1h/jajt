@@ -1,6 +1,6 @@
 import os
 import logging
-from datetime import datetime
+from datetime import datetime, time
 import pytz
 from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
@@ -252,6 +252,20 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
             f"❌ Une erreur s'est produite: {str(e)}"
         )
 
+async def daily_reminder(context: ContextTypes.DEFAULT_TYPE):
+    """Envoie un rappel quotidien pour écrire dans le journal"""
+    job = context.job
+    
+    # Si des utilisateurs sont autorisés, envoyer le rappel à chacun d'eux
+    if AUTHORIZED_USERS:
+        for user_id in AUTHORIZED_USERS:
+            await context.bot.send_message(
+                chat_id=user_id,
+                text="🌙 Bonsoir ! C'est l'heure d'écrire dans votre journal !\n\nComment s'est passée votre journée ?"
+            )
+    else:
+        logger.warning("Aucun utilisateur autorisé configuré pour le rappel quotidien")
+
 def main():
     """Fonction principale"""
     # Créer l'application
@@ -266,6 +280,12 @@ def main():
     
     # Gestionnaire pour tous les messages texte
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
+    
+    # Configurer le job de rappel quotidien
+    job_queue = application.job_queue
+    # Programmer le rappel tous les jours à 20h00
+    reminder_time = time(20, 00, tzinfo=pytz.timezone(TIMEZONE))
+    job_queue.run_daily(daily_reminder, time=reminder_time)
     
     # Démarrer le bot
     logger.info("🚀 Bot démarré !")
