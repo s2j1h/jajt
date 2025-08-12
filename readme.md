@@ -13,6 +13,9 @@ Un bot Telegram simple pour créer un journal personnel avec versioning automati
 ### v1.1
 - ajout d'un job qui demandera à l'utilisateur 1/jour pour écrire une entrée (à 20h00)
 
+### v1.2
+- Possibilité de mettre le script dans un container docker
+
 
 ## Installation rapide
 
@@ -54,7 +57,7 @@ pip install -r requirements.txt
 
 3. **Configurez les variables** :
 
-Créez un fichier .env qui contiendra les différentes variables
+Créez un fichier .env qui contiendra les différentes variables (ou utiliser l'exemple dans  `.env-example`)
 ```bash
 TELEGRAM_BOT_TOKEN = "VOTRE_TOKEN_TELEGRAM"
 GITHUB_TOKEN = "VOTRE_TOKEN_GITHUB"
@@ -68,11 +71,15 @@ AUTHORIZED_USERS = "" #la liste des utilisateurs autorisés à utiliser le bot, 
 
 ### Démarrer le bot
 
+#### en mode simple
 ```bash
 python journal_bot.py
 ```
 
-### Commandes disponibles
+#### via docker
+cf. `quick-start-docker.md`
+
+### Commandes disponibles dans Telegram
 
 - `/start` - Initialiser le bot
 - `/help` - Afficher l'aide

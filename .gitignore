@@ -1,2 +1,19 @@
 .env
 .venv
+
+# Logs
+logs/
+*.log
+
+# Docker volumes
+docker-volumes/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# OS
+.DS_Store
+Thumbs.db

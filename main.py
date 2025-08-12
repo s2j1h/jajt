@@ -266,6 +266,15 @@ async def daily_reminder(context: ContextTypes.DEFAULT_TYPE):
     else:
         logger.warning("Aucun utilisateur autorisé configuré pour le rappel quotidien")
 
+async def send_startup_message(context: ContextTypes.DEFAULT_TYPE):
+    """Envoie un message de démarrage aux utilisateurs autorisés"""
+    if AUTHORIZED_USERS:
+        for user_id in AUTHORIZED_USERS:
+            await context.bot.send_message(
+                chat_id=user_id,
+                text="🔄 Le bot vient de redémarrer et est maintenant en ligne !"
+            )
+
 def main():
     """Fonction principale"""
     # Créer l'application
@@ -286,6 +295,9 @@ def main():
     # Programmer le rappel tous les jours à 20h00
     reminder_time = time(20, 00, tzinfo=pytz.timezone(TIMEZONE))
     job_queue.run_daily(daily_reminder, time=reminder_time)
+    
+    # Envoyer le message de démarrage
+    job_queue.run_once(send_startup_message, when=1)
     
     # Démarrer le bot
     logger.info("🚀 Bot démarré !")

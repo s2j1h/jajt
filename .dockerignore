@@ -1,0 +1,55 @@
+# Fichiers et dossiers à ignorer lors du build Docker
+
+# Environnements virtuels Python
+.venv/
+venv/
+env/
+
+# Variables d'environnement (seront passées via docker-compose)
+.env
+.env.local
+.env.production
+
+# Fichiers Python compilés
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+logs/
+
+# Git
+.git/
+.gitignore
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Documentation
+README.md
+readme.md
+docs/
+
+# Tests
+tests/
+test/
+*_test.py
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp

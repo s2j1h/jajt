@@ -1,0 +1,39 @@
+
+services:
+  journal-bot:
+    build: .
+    container_name: jajt-bot
+    restart: unless-stopped
+    environment:
+      # Variables d'environnement requises
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
+      - GITHUB_REPO=${GITHUB_REPO}
+      - JOURNAL_FILE=${JOURNAL_FILE:-journal.md}
+      - TIMEZONE=${TIMEZONE:-Europe/Paris}
+      - AUTHORIZED_USERS=${AUTHORIZED_USERS}
+    env_file:
+      - .env
+    # Optionnel : montage de volumes pour les logs
+    volumes:
+      - ./logs:/app/logs:rw
+    # Configuration de logging pour Docker
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    # Politique de redémarrage
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+    # Limites de ressources (optionnel)
+    mem_limit: 256m
+    cpus: 0.5
+
+# Réseau (optionnel, pour connecter à d'autres services)
+networks:
+  default:
+    name: jajt-network
